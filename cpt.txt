@@ -388,7 +388,35 @@ super: Used by a child class to refer to the state and behavior in its parent an
 
 5.
 
-A char is an integer: True. In Java, char is represented as a 16-bit unsigned integer under the hood.
-The scope of a variable is from the line on which it is declared to the end of the body in which it is declared: True. This is the rule for variable scope in Java.
-A variable must be initialized at the same time that it is declared, e.g., int x = 5;: False. Variables can be declared without being immediately initialized (e.g., int x;).
-Conditionals are used to implement a branching flow of control: True. Conditionals like if, else if, and else control the branching in the program.
+Based on the image content, here are the true statements:
+
+A char is an integer: True
+
+A char in Java is a 16-bit unsigned integer (numeric value) that represents a Unicode character.
+The scope of a variable is from the line on which it is declared to the end of the body in which it is declared: True
+
+This is the rule for variable scope in Java.
+A variable must be initialized at the same time that it is declared, e.g., int x = 5;: False
+
+Variables can be declared without being initialized, but they must be initialized before being used.
+Conditionals are used to implement a branching flow of control: True
+
+Statements like if, else if, and else implement branching logic.
+When using a switch statement, any statements following the matching case will be executed, including statements in other cases, until a break statement: True
+
+Without a break, the execution "falls through" to subsequent cases.
+The statements in the body of a while loop may be executed 0 or more times: True
+
+If the condition is false initially, the body of the loop won't execute at all.
+The statements in the body of a loop or conditional must be enclosed in curly braces ({}) to avoid a compiler error: False
+
+Single statements don't require curly braces, though it's a good practice to use them.
+int[] x = new int[5]; creates an array large enough to store 6 integers at indexes 0 through 5: False
+
+It creates an array large enough to store 5 integers, indexed from 0 to 4.
+An array is passed into a function as a reference: True
+
+Arrays in Java are reference types, so the reference to the array is passed, not a copy.
+Java supports arrays with any number of dimensions (i.e., 1, 2, or more): True
+
+Java supports multi-dimensional arrays.
