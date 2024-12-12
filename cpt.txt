@@ -364,7 +364,17 @@ Integer: Reference
 char: Primitive
 boolean: Primitive
 
-
+q4
+Matching Definitions
+Shallow Equality: Comparing two values using only identity (i.e., value or address stored in memory).
+Memory: Organized as addresses into which the computer can store data and from which the computer can retrieve data.
+super: Used by a child class to refer to the state and behavior in its parent and to call a constructor on the parent.
+Field: A variable that belongs to an object.
+Class: A blueprint or template that defines the state and behavior for a category of things.
+Variable Table: Stores identifiers, types, and addresses so that when an identifier is used, the value can be retrieved.
+Deep Equality: Comparing the state of two objects, i.e., the value of the variables inside of the objects.
+Method: A function that belongs to an object.
+Variable
 
 Question 5 (1 point)
 Check all of the true statements below:
