@@ -364,14 +364,7 @@ Integer: Reference
 char: Primitive
 boolean: Primitive
 
-Question 4: Use Depth First Search (DFS)
-File: SCR-20241212-ibif.png
-Use depth first search (DFS) to find the path from A to I. Assume that neighbors are visited in alphabetical order:
 
-ABFGECDHI
-ABCDEFGHI
-ABFJI
-ABGEDHI
 
 Question 5 (1 point)
 Check all of the true statements below:
@@ -383,6 +376,7 @@ When using a switch statement, any statements following the matching case will b
 The statements in the body of a while loop may be executed 0 or more times.
 An array is passed into a function as a reference.
 Java supports arrays with any number of dimensions (1, 2, or more).
+
 Question 6 (1 point)
 Given that a = false and b = true, check any expression that evaluates to true:
 
@@ -413,6 +407,7 @@ Two objects of the same class can see and/or change each other's private fields.
 The "new" keyword tells Java to find some memory and store something there, like a new array or an object.
 When used to compare two variables, the == operator will compare the value stored in each variable's location in memory.
 The string literal pool means that the behavior of the == operator is sometimes unpredictable when comparing strings.
+
 Question 9 (1 point)
 Select the correct complexity (average case unless stated otherwise):
 
@@ -458,6 +453,28 @@ Question 15 (0.5 points)
 Use Breadth First Search (BFS) to find the path from A to I. Assume neighbors are visited in alphabetical order:
 
 A → B → C → D → H → I
+
+Question 14 (1 point)
+File: SCR-20241212-ibbi.png
+Choose the sequence that would create the min heap with the following configuration:
+Answer: 1, 2, 3, 4, 5, 6
+
+Question 15 (0.5 points)
+File: SCR-20241212-ibcx.png
+Use breadth first search (BFS) to find the path from A to I. Assume that neighbors are visited in alphabetical order:
+Answer: ABCDEFGHI
+
+Question 16: Use Depth First Search (DFS)
+File: SCR-20241212-ibif.png
+Use Depth First Search (DFS) to find the path from A to I. Assume that neighbors are visited in alphabetical order:
+
+ABFGECDHI
+ABCDEFGHI
+ABFJI
+ABGEDHI
+Answer: ABFGECDHI
+
+
 Question 17 (1 point)
 Check all of the true statements below:
 
