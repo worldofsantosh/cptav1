@@ -339,6 +339,7 @@ public class RandomClient {
 }
 
 quiz
+
 Question 2 (1 point)
 Number the steps in the development lifecycle so that they are in the correct order:
 
@@ -348,6 +349,7 @@ Compile, run, and test your code.
 Fix bugs until your tests pass.
 Use git to commit your changes to your local repository.
 Push your changes to GitHub.
+
 Question 3 (1 point)
 For each type, choose either "primitive" or "reference":
 
@@ -361,6 +363,16 @@ float: Primitive
 Integer: Reference
 char: Primitive
 boolean: Primitive
+
+Question 4: Use Depth First Search (DFS)
+File: SCR-20241212-ibif.png
+Use depth first search (DFS) to find the path from A to I. Assume that neighbors are visited in alphabetical order:
+
+ABFGECDHI
+ABCDEFGHI
+ABFJI
+ABGEDHI
+
 Question 5 (1 point)
 Check all of the true statements below:
 
@@ -377,6 +389,7 @@ Given that a = false and b = true, check any expression that evaluates to true:
 b && !a
 b || !a
 (a || b) && !(a && b)
+
 Question 7 (1 point)
 Match each term with the correct definition:
 
@@ -390,6 +403,16 @@ Recursive Case: The part of a recursive function that does a unit of work and ma
 Stack Overflow: Refers to exceeding the maximum number of stack frames allowed in the call stack.
 In-Place Sort: A sort performed within the array itself by swapping values between indexes.
 Natural Order: Given any two elements, determines which comes first in sorted order.
+
+Question 8 (1 point)
+File: SCR-20241212-hxhf.png
+Check all of the true statements below:
+
+If no access modifier is specified, a field or method is only visible to other classes in the same package.
+Two objects of the same class can see and/or change each other's private fields.
+The "new" keyword tells Java to find some memory and store something there, like a new array or an object.
+When used to compare two variables, the == operator will compare the value stored in each variable's location in memory.
+The string literal pool means that the behavior of the == operator is sometimes unpredictable when comparing strings.
 Question 9 (1 point)
 Select the correct complexity (average case unless stated otherwise):
 
@@ -400,6 +423,7 @@ Array List (add to the end): O(1)
 Linked List (add to the front): O(1)
 Merge Sort (worst case): O(N log N)
 Set (add a value): O(1)
+
 Question 10 (1 point)
 Match each term with the correct definition:
 
@@ -413,6 +437,16 @@ Post-Order Traversal: Visits the left subtree, then the right subtree, then the 
 Readers/Writers: Used to read/write character data to/from a data source (e.g., a file).
 Input/Output Streams: Used to read/write binary data to/from a data source (e.g., a file).
 Flushing: Forces buffered data to be written.
+
+Question 12 (1 point)
+File: SCR-20241212-iawx.png
+Arrange the TDD steps so that they are in the correct order:
+
+Fail: Write a failing test.
+Pass: Write the minimal code to make the test pass.
+Refactor.
+Commit/Push.
+
 Question 13 (1 point)
 Check all of the true statements below:
 
