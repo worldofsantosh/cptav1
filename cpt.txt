@@ -1,340 +1,176 @@
-1.
 /*
- * RandomServer.java
+ * BankAccount.java
  * Name of the class: SWEN.601.01 - Software Construction
  * Name: Atharva Vaidya
  * Email: aav6986@g.rit.edu
- * ---------------------------------------------  Final Exam ---------------------------------------------
+ * --------------------------------------------- Final Exam ---------------------------------------------
  */
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Random;
+public class BankAccount {
+    private double balance;
 
-/**
- * The RandomServer class implements a simple server that listens for client requests
- * and responds according to a predefined protocol:
- * - "roll #" where # is a positive integer: roll the specified number of 6-sided dice and return the sum.
- * - "flip": flip a coin and return "heads" or "tails".
- * - "goodbye": respond with "bye" and disconnect.
- * - any other request: respond with "error" and disconnect.
- *
- * This server handles a single client connection at a time (sequential).
- */
-public class RandomServer {
-    private static final int PORT = 12345;
-    private final Random random = new Random();
-
-    /**
-     * Starts the RandomServer and listens for a single client connection. Once connected,
-     * it handles client requests sequentially until a disconnect condition occurs.
-     *
-     * @throws IOException if an I/O error occurs when waiting for a connection or reading/writing data
-     */
-    public void start() throws IOException {
-        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
-            System.out.println("RandomServer started. Waiting for client...");
-            try (Socket clientSocket = serverSocket.accept();
-                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
-                System.out.println("Client connected.");
-
-                String inputLine;
-                while ((inputLine = in.readLine()) != null) {
-                    String response = processRequest(inputLine);
-                    out.println(response);
-                    if (response.equals("bye") || response.equals("error")) {
-                        System.out.println("Client disconnected.");
-                        break;
-                    }
-                }
-            }
-        }
+    public BankAccount(double initialBalance) {
+        this.balance = initialBalance;
     }
 
-    /**
-     * Processes a single client request according to the defined protocol.
-     *
-     * @param request the client request string
-     * @return the server response string
-     */
-    private String processRequest(String request) {
-        // Check for "goodbye"
-        if ("goodbye".equalsIgnoreCase(request.trim())) {
-            return "bye";
-        }
-
-        // Check for "flip"
-        if ("flip".equalsIgnoreCase(request.trim())) {
-            return random.nextBoolean() ? "heads" : "tails";
-        }
-
-        // Check for "roll #"
-        if (request.toLowerCase().startsWith("roll")) {
-            String[] parts = request.trim().split("\\s+");
-            if (parts.length == 2) {
-                try {
-                    int numberOfDice = Integer.parseInt(parts[1]);
-                    if (numberOfDice > 0) {
-                        int sum = 0;
-                        for (int i = 0; i < numberOfDice; i++) {
-                            sum += (random.nextInt(6) + 1);
-                        }
-                        return String.valueOf(sum);
-                    }
-                } catch (NumberFormatException e) {
-                    // fall through to error
-                }
-            }
-        }
-
-        // Any other request is invalid
-        return "error";
+    public synchronized void deposit(double amount) {
+        balance += amount;
+        System.out.println("Deposited: $" + amount + " | Current Balance: $" + balance);
+        notifyAll();
     }
 
-    /**
-     * The main method to start the server.
-     *
-     * @param args command-line arguments
-     * @throws IOException if an error occurs starting the server
-     */
-    public static void main(String[] args) throws IOException {
-        RandomServer server = new RandomServer();
-        server.start();
+    public synchronized void withdraw(double amount) throws InterruptedException {
+        while (balance < amount) {
+            System.out.println("Insufficient funds. Waiting for deposit...");
+            wait();
+        }
+        balance -= amount;
+        System.out.println("Withdrew: $" + amount + " | Current Balance: $" + balance);
+    }
+
+    public double getBalance() {
+        return balance;
     }
 }
 
-2.
 /*
- * RandomThreadedServer.java
+ * BankAccount.java
  * Name of the class: SWEN.601.01 - Software Construction
  * Name: Atharva Vaidya
  * Email: aav6986@g.rit.edu
- * ---------------------------------------------  Final Exam ---------------------------------------------
+ * --------------------------------------------- Final Exam ---------------------------------------------
  */
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.ServerSocket;
-import java.net.Socket;
-import java.util.Random;
+public class BankAccount {
+    private double balance;
 
-/**
- * The RandomThreadedServer class is a multi-threaded version of the RandomServer.
- * It spawns a new thread for each client connection allowing multiple concurrent clients.
- * The same protocol is followed as in RandomServer:
- * - "roll #"
- * - "flip"
- * - "goodbye"
- * - any other request results in "error" and termination of that client's connection.
+    public BankAccount(double initialBalance) {
+        this.balance = initialBalance;
+    }
+
+    public synchronized void deposit(double amount) {
+        balance += amount;
+        System.out.println("Deposited: $" + amount + " | Current Balance: $" + balance);
+        notifyAll();
+    }
+
+    public synchronized void withdraw(double amount) throws InterruptedException {
+        while (balance < amount) {
+            System.out.println("Insufficient funds. Waiting for deposit...");
+            wait();
+        }
+        balance -= amount;
+        System.out.println("Withdrew: $" + amount + " | Current Balance: $" + balance);
+    }
+
+    public double getBalance() {
+        return balance;
+    }
+}
+
+/*
+ * Depositor.java
+ * Name of the class: SWEN.601.01 - Software Construction
+ * Name: Atharva Vaidya
+ * Email: aav6986@g.rit.edu
+ * --------------------------------------------- Final Exam ---------------------------------------------
  */
-public class RandomThreadedServer {
-    private static final int PORT = 12346;
 
-    /**
-     * Starts the RandomThreadedServer and continuously accepts client connections.
-     * Each client connection is handled in a separate thread, allowing concurrent processing.
-     *
-     * @throws IOException if an I/O error occurs when waiting for a connection
-     */
-    public void start() throws IOException {
-        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
-            System.out.println("RandomThreadedServer started. Waiting for clients...");
-            while (true) {
-                Socket clientSocket = serverSocket.accept();
-                System.out.println("New client connected.");
-                Thread handlerThread = new Thread(new ClientHandler(clientSocket));
-                handlerThread.start();
-            }
-        }
+public class Depositor extends Thread {
+    private BankAccount account;
+    private String name;
+
+    public Depositor(String name, BankAccount account) {
+        this.name = name;
+        this.account = account;
     }
 
-    /**
-     * The main method to start the threaded server.
-     *
-     * @param args command-line arguments
-     * @throws IOException if an error occurs starting the server
-     */
-    public static void main(String[] args) throws IOException {
-        RandomThreadedServer server = new RandomThreadedServer();
-        server.start();
-    }
-
-    /**
-     * Inner class for handling a single client connection in a dedicated thread.
-     */
-    private static class ClientHandler implements Runnable {
-        private final Socket clientSocket;
-        private final Random random = new Random();
-
-        /**
-         * Constructs a ClientHandler with a given client socket.
-         *
-         * @param clientSocket the client socket to be handled
-         */
-        public ClientHandler(Socket clientSocket) {
-            this.clientSocket = clientSocket;
-        }
-
-        /**
-         * The run method to process client requests in a loop.
-         * Closes the connection upon receiving "goodbye" or an error.
-         */
-        @Override
-        public void run() {
-            try (BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
-                 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
-
-                String inputLine;
-                while ((inputLine = in.readLine()) != null) {
-                    String response = processRequest(inputLine);
-                    out.println(response);
-                    if ("bye".equals(response) || "error".equals(response)) {
-                        break;
-                    }
-                }
-
-            } catch (IOException e) {
-                System.err.println("Client connection error: " + e.getMessage());
-            } finally {
-                try {
-                    clientSocket.close();
-                } catch (IOException ignored) {
-                }
-                System.out.println("Client disconnected.");
+    @Override
+    public void run() {
+        try {
+            for (int i = 0; i < 5; i++) {
+                double amount = (int) (Math.random() * 1000) + 500; // Random deposit amount
+                Thread.sleep((int) (Math.random() * 6000) + 1000); // Random delay 1-6 seconds
+                account.deposit(amount);
             }
-        }
-
-        /**
-         * Processes a single client request according to the defined protocol.
-         *
-         * @param request the client request string
-         * @return the server response string
-         */
-        private String processRequest(String request) {
-            // Check for "goodbye"
-            if ("goodbye".equalsIgnoreCase(request.trim())) {
-                return "bye";
-            }
-
-            // Check for "flip"
-            if ("flip".equalsIgnoreCase(request.trim())) {
-                return random.nextBoolean() ? "heads" : "tails";
-            }
-
-            // Check for "roll #"
-            if (request.toLowerCase().startsWith("roll")) {
-                String[] parts = request.trim().split("\\s+");
-                if (parts.length == 2) {
-                    try {
-                        int numberOfDice = Integer.parseInt(parts[1]);
-                        if (numberOfDice > 0) {
-                            int sum = 0;
-                            for (int i = 0; i < numberOfDice; i++) {
-                                sum += (random.nextInt(6) + 1);
-                            }
-                            return String.valueOf(sum);
-                        }
-                    } catch (NumberFormatException e) {
-                        // fall through to error
-                    }
-                }
-            }
-
-            // Any other request is invalid
-            return "error";
+        } catch (InterruptedException e) {
+            System.out.println(name + " was interrupted!");
         }
     }
 }
 
-
-3.
 /*
- * RandomClient.java
+ * Withdrawer.java
  * Name of the class: SWEN.601.01 - Software Construction
  * Name: Atharva Vaidya
  * Email: aav6986@g.rit.edu
- * ---------------------------------------------  Final Exam ---------------------------------------------
+ * --------------------------------------------- Final Exam ---------------------------------------------
  */
 
-import java.io.BufferedReader;
-import java.io.IOException;
-import java.io.InputStreamReader;
-import java.io.PrintWriter;
-import java.net.Socket;
-import java.util.Scanner;
+public class Withdrawer extends Thread {
+    private BankAccount account;
+    private String name;
 
-/**
- * The RandomClient class implements the client side of the protocol described for RandomServer.
- * It connects to the server, sends user-entered requests, and prints the server's responses.
- *
- * Example usage:
- * Run RandomServer separately, then run RandomClient.
- * Enter commands like:
- * - "roll 5" -> server returns sum of rolling 5 dice
- * - "flip"   -> server returns "heads" or "tails"
- * - "goodbye"-> server returns "bye" and disconnects
- *
- * Any invalid request returns "error" and disconnects the client.
- */
-public class RandomClient {
-    private static final String HOST = "localhost";
-    private static final int PORT = 12345; // match the RandomServer's port
-
-    /**
-     * Starts the RandomClient, connects to the RandomServer, and allows the user to input commands.
-     * The responses from the server are printed until the server disconnects.
-     *
-     * @throws IOException if an I/O error occurs when connecting or communicating with the server
-     */
-    public void start() throws IOException {
-        try (Socket socket = new Socket(HOST, PORT);
-             PrintWriter out = new PrintWriter(socket.getOutputStream(), true);
-             BufferedReader in = new BufferedReader(new InputStreamReader(socket.getInputStream()));
-             Scanner scanner = new Scanner(System.in)) {
-
-            System.out.println("Connected to RandomServer at " + HOST + ":" + PORT);
-            System.out.println("Enter commands (e.g. 'roll 6', 'flip', 'goodbye'):");
-
-            String userInput;
-            while (true) {
-                System.out.print("> ");
-                if (!scanner.hasNextLine()) {
-                    break;
-                }
-                userInput = scanner.nextLine();
-                out.println(userInput);
-
-                String serverResponse = in.readLine();
-                if (serverResponse == null) {
-                    System.out.println("Server disconnected.");
-                    break;
-                }
-                System.out.println("Server: " + serverResponse);
-
-                if ("bye".equals(serverResponse) || "error".equals(serverResponse)) {
-                    System.out.println("Connection closed by server.");
-                    break;
-                }
-            }
-        }
+    public Withdrawer(String name, BankAccount account) {
+        this.name = name;
+        this.account = account;
     }
 
-    /**
-     * The main method to start the RandomClient.
-     *
-     * @param args command-line arguments
-     * @throws IOException if an error occurs connecting to the server
-     */
-    public static void main(String[] args) throws IOException {
-        RandomClient client = new RandomClient();
-        client.start();
+    @Override
+    public void run() {
+        try {
+            for (int i = 0; i < 3; i++) {
+                double amount = 1000; // Fixed withdrawal amount
+                account.withdraw(amount);
+                Thread.sleep((int) (Math.random() * 4000) + 1000); // Random delay 1-4 seconds
+            }
+        } catch (InterruptedException e) {
+            System.out.println(name + " was interrupted!");
+        }
+    }
+}
+
+/*
+ * BankMain.java
+ * Name of the class: SWEN.601.01 - Software Construction
+ * Name: Atharva Vaidya
+ * Email: aav6986@g.rit.edu
+ * --------------------------------------------- Final Exam ---------------------------------------------
+ */
+
+public class BankMain {
+    public static void main(String[] args) {
+        BankAccount sharedAccount = new BankAccount(5000);
+
+        Thread[] depositors = new Thread[10];
+        Thread[] withdrawers = new Thread[10];
+
+        for (int i = 0; i < 10; i++) {
+            depositors[i] = new Depositor("Depositor " + (i + 1), sharedAccount);
+            withdrawers[i] = new Withdrawer("Withdrawer " + (i + 1), sharedAccount);
+        }
+
+        for (Thread depositor : depositors) {
+            depositor.start();
+        }
+
+        for (Thread withdrawer : withdrawers) {
+            withdrawer.start();
+        }
+
+        try {
+            for (Thread depositor : depositors) {
+                depositor.join();
+            }
+
+            for (Thread withdrawer : withdrawers) {
+                withdrawer.join();
+            }
+        } catch (InterruptedException e) {
+            System.out.println("Main thread interrupted!");
+        }
+
+        System.out.println("All transactions completed.");
     }
 }
 
