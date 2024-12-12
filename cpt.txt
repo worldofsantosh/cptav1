@@ -1,1 +1,109 @@
-Check the fucking google drive for photos
+1.
+/*
+ * RandomServer.java
+ * Name of the class: SWEN.601.01 - Software Construction
+ * Name: Atharva Vaidya
+ * Email: aav6986@g.rit.edu
+ * ---------------------------------------------  Final Exam ---------------------------------------------
+ */
+
+import java.io.BufferedReader;
+import java.io.IOException;
+import java.io.InputStreamReader;
+import java.io.PrintWriter;
+import java.net.ServerSocket;
+import java.net.Socket;
+import java.util.Random;
+
+/**
+ * The RandomServer class implements a simple server that listens for client requests
+ * and responds according to a predefined protocol:
+ * - "roll #" where # is a positive integer: roll the specified number of 6-sided dice and return the sum.
+ * - "flip": flip a coin and return "heads" or "tails".
+ * - "goodbye": respond with "bye" and disconnect.
+ * - any other request: respond with "error" and disconnect.
+ *
+ * This server handles a single client connection at a time (sequential).
+ */
+public class RandomServer {
+    private static final int PORT = 12345;
+    private final Random random = new Random();
+
+    /**
+     * Starts the RandomServer and listens for a single client connection. Once connected,
+     * it handles client requests sequentially until a disconnect condition occurs.
+     *
+     * @throws IOException if an I/O error occurs when waiting for a connection or reading/writing data
+     */
+    public void start() throws IOException {
+        try (ServerSocket serverSocket = new ServerSocket(PORT)) {
+            System.out.println("RandomServer started. Waiting for client...");
+            try (Socket clientSocket = serverSocket.accept();
+                 BufferedReader in = new BufferedReader(new InputStreamReader(clientSocket.getInputStream()));
+                 PrintWriter out = new PrintWriter(clientSocket.getOutputStream(), true)) {
+                System.out.println("Client connected.");
+
+                String inputLine;
+                while ((inputLine = in.readLine()) != null) {
+                    String response = processRequest(inputLine);
+                    out.println(response);
+                    if (response.equals("bye") || response.equals("error")) {
+                        System.out.println("Client disconnected.");
+                        break;
+                    }
+                }
+            }
+        }
+    }
+
+    /**
+     * Processes a single client request according to the defined protocol.
+     *
+     * @param request the client request string
+     * @return the server response string
+     */
+    private String processRequest(String request) {
+        // Check for "goodbye"
+        if ("goodbye".equalsIgnoreCase(request.trim())) {
+            return "bye";
+        }
+
+        // Check for "flip"
+        if ("flip".equalsIgnoreCase(request.trim())) {
+            return random.nextBoolean() ? "heads" : "tails";
+        }
+
+        // Check for "roll #"
+        if (request.toLowerCase().startsWith("roll")) {
+            String[] parts = request.trim().split("\\s+");
+            if (parts.length == 2) {
+                try {
+                    int numberOfDice = Integer.parseInt(parts[1]);
+                    if (numberOfDice > 0) {
+                        int sum = 0;
+                        for (int i = 0; i < numberOfDice; i++) {
+                            sum += (random.nextInt(6) + 1);
+                        }
+                        return String.valueOf(sum);
+                    }
+                } catch (NumberFormatException e) {
+                    // fall through to error
+                }
+            }
+        }
+
+        // Any other request is invalid
+        return "error";
+    }
+
+    /**
+     * The main method to start the server.
+     *
+     * @param args command-line arguments
+     * @throws IOException if an error occurs starting the server
+     */
+    public static void main(String[] args) throws IOException {
+        RandomServer server = new RandomServer();
+        server.start();
+    }
+}
