@@ -339,27 +339,17 @@ public class RandomClient {
 }
 
 quiz
-1.
+Question 2 (1 point)
+Number the steps in the development lifecycle so that they are in the correct order:
 
-2.
-The correct order of the steps in the development lifecycle is:
-
-Pull the latest code from GitHub. (Ensure you have the most up-to-date version of the code before making changes.)
-Add some new code. (Make your changes or additions to the codebase.)
-Compile, run, and test your code. (Ensure your changes work as intended.)
-Fix bugs until your tests pass. (Resolve any issues found during testing.)
-Use git to commit your changes to your local repository. (Save your work locally with a meaningful commit message.)
-Push your changes to GitHub. (Share your changes with others by pushing them to the remote repository.)
-
-
-
-
-
-
-
-3.
-
-Here are the correct classifications for each type:
+Pull the latest code from GitHub.
+Add some new code.
+Compile, run, and test your code.
+Fix bugs until your tests pass.
+Use git to commit your changes to your local repository.
+Push your changes to GitHub.
+Question 3 (1 point)
+For each type, choose either "primitive" or "reference":
 
 Object: Reference
 short: Primitive
@@ -371,52 +361,77 @@ float: Primitive
 Integer: Reference
 char: Primitive
 boolean: Primitive
+Question 5 (1 point)
+Check all of the true statements below:
 
-4.
+A char is an integer.
+The scope of a variable is from the line on which it is declared to the end of the body in which it is declared.
+Conditionals are used to implement a branching flow of control.
+When using a switch statement, any statements following the matching case will be executed, including statements in other cases, until a break statement.
+The statements in the body of a while loop may be executed 0 or more times.
+An array is passed into a function as a reference.
+Java supports arrays with any number of dimensions (1, 2, or more).
+Question 6 (1 point)
+Given that a = false and b = true, check any expression that evaluates to true:
 
-Matching Definitions:
-Variable: A name for an address in memory.
-Variable Table: Stores identifiers, types, and addresses so that when an identifier is used, the value can be retrieved.
-Memory: Organized as addresses into which the computer can store data and from which the computer can retrieve data.
-Class: A blueprint or template that defines the state and behavior for a category of things.
-Object: A unique, identifiable instance of a class that has its own copy of the state and behavior.
-Field: A variable that belongs to an object.
-Method: A function that belongs to an object.
-Shallow Equality: Comparing two values using only identity (i.e. value or address stored in memory).
-Deep Equality: Comparing the state of two objects, i.e. the value of the variables inside of the objects.
-super: Used by a child class to refer to the state and behavior in its parent and to call a constructor on the parent.
+b && !a
+b || !a
+(a || b) && !(a && b)
+Question 7 (1 point)
+Match each term with the correct definition:
 
-5.
+Overriding: Replacing a method in the parent class with a new implementation in the child.
+Polymorphism: Allows an instance of a child class to be used in code where the parent is expected.
+Test-Driven Development (TDD): A development process that involves writing tests first, and the code to make the test pass afterwards.
+Unit Test: A class that comprises many small tests, each of which usually tests only a single method.
+Refactoring: Used to safely modify your code, allowing you to rerun tests and ensure no previous functionality is broken.
+Base Case: The part of a recursive function that determines when the work should stop.
+Recursive Case: The part of a recursive function that does a unit of work and makes a recursive call.
+Stack Overflow: Refers to exceeding the maximum number of stack frames allowed in the call stack.
+In-Place Sort: A sort performed within the array itself by swapping values between indexes.
+Natural Order: Given any two elements, determines which comes first in sorted order.
+Question 9 (1 point)
+Select the correct complexity (average case unless stated otherwise):
 
-Based on the image content, here are the true statements:
+Binary Search: O(log N)
+Quicksort (worst case): O(N²)
+Array List (access by index): O(1)
+Array List (add to the end): O(1)
+Linked List (add to the front): O(1)
+Merge Sort (worst case): O(N log N)
+Set (add a value): O(1)
+Question 10 (1 point)
+Match each term with the correct definition:
 
-A char is an integer: True
+Hash Function: A one-way function that converts arbitrary data into a number.
+Collision: Caused when two or more keys are mapped to the same index in a hash map.
+Chaining: Uses a list to handle the event that two keys are placed into the same index in a hash map.
+Open Addressing: Places the second key in the next empty index in the array when two keys are placed into the same index in a hash map.
+Pre-Order Traversal: Visits the node first, then the left subtree, then the right subtree.
+In-Order Traversal: Visits the left subtree, then the node, then the right subtree.
+Post-Order Traversal: Visits the left subtree, then the right subtree, then the node.
+Readers/Writers: Used to read/write character data to/from a data source (e.g., a file).
+Input/Output Streams: Used to read/write binary data to/from a data source (e.g., a file).
+Flushing: Forces buffered data to be written.
+Question 13 (1 point)
+Check all of the true statements below:
 
-A char in Java is a 16-bit unsigned integer (numeric value) that represents a Unicode character.
-The scope of a variable is from the line on which it is declared to the end of the body in which it is declared: True
+Two objects that are equal according to their equals(Object) methods should always return the same hash code.
+As the number of collisions in a hash map increases, the performance of the put and get operations approaches O(N).
+Once determined, an object's hash code must never change.
+A binary search tree is one where, given the value V of any node, all values in the left subtree are less than V, and all values in the right subtree are greater.
+Question 15 (0.5 points)
+Use Breadth First Search (BFS) to find the path from A to I. Assume neighbors are visited in alphabetical order:
 
-This is the rule for variable scope in Java.
-A variable must be initialized at the same time that it is declared, e.g., int x = 5;: False
+A → B → C → D → H → I
+Question 17 (1 point)
+Check all of the true statements below:
 
-Variables can be declared without being initialized, but they must be initialized before being used.
-Conditionals are used to implement a branching flow of control: True
+Breadth First Search (BFS) will always find a path with the fewest possible edges.
+Dijkstra's Algorithm will always find the shortest path in terms of weights.
+A try must always be followed by at least one catch or exactly one finally.
+A thread may be moved to the WAITING state if sleep, join, or wait are used.
+A thread in the WAITING state can be interrupted.
+At least two threads and two locks must be involved to create deadlock.
 
-Statements like if, else if, and else implement branching logic.
-When using a switch statement, any statements following the matching case will be executed, including statements in other cases, until a break statement: True
 
-Without a break, the execution "falls through" to subsequent cases.
-The statements in the body of a while loop may be executed 0 or more times: True
-
-If the condition is false initially, the body of the loop won't execute at all.
-The statements in the body of a loop or conditional must be enclosed in curly braces ({}) to avoid a compiler error: False
-
-Single statements don't require curly braces, though it's a good practice to use them.
-int[] x = new int[5]; creates an array large enough to store 6 integers at indexes 0 through 5: False
-
-It creates an array large enough to store 5 integers, indexed from 0 to 4.
-An array is passed into a function as a reference: True
-
-Arrays in Java are reference types, so the reference to the array is passed, not a copy.
-Java supports arrays with any number of dimensions (i.e., 1, 2, or more): True
-
-Java supports multi-dimensional arrays.
