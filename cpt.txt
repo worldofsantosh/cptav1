@@ -338,4 +338,57 @@ public class RandomClient {
     }
 }
 
+quiz
+1.
 
+2.
+The correct order of the steps in the development lifecycle is:
+
+Pull the latest code from GitHub. (Ensure you have the most up-to-date version of the code before making changes.)
+Add some new code. (Make your changes or additions to the codebase.)
+Compile, run, and test your code. (Ensure your changes work as intended.)
+Fix bugs until your tests pass. (Resolve any issues found during testing.)
+Use git to commit your changes to your local repository. (Save your work locally with a meaningful commit message.)
+Push your changes to GitHub. (Share your changes with others by pushing them to the remote repository.)
+
+
+
+
+
+
+
+3.
+
+Here are the correct classifications for each type:
+
+Object: Reference
+short: Primitive
+int[]: Reference
+String: Reference
+ArrayList: Reference
+byte: Primitive
+float: Primitive
+Integer: Reference
+char: Primitive
+boolean: Primitive
+
+4.
+
+Matching Definitions:
+Variable: A name for an address in memory.
+Variable Table: Stores identifiers, types, and addresses so that when an identifier is used, the value can be retrieved.
+Memory: Organized as addresses into which the computer can store data and from which the computer can retrieve data.
+Class: A blueprint or template that defines the state and behavior for a category of things.
+Object: A unique, identifiable instance of a class that has its own copy of the state and behavior.
+Field: A variable that belongs to an object.
+Method: A function that belongs to an object.
+Shallow Equality: Comparing two values using only identity (i.e. value or address stored in memory).
+Deep Equality: Comparing the state of two objects, i.e. the value of the variables inside of the objects.
+super: Used by a child class to refer to the state and behavior in its parent and to call a constructor on the parent.
+
+5.
+
+A char is an integer: True. In Java, char is represented as a 16-bit unsigned integer under the hood.
+The scope of a variable is from the line on which it is declared to the end of the body in which it is declared: True. This is the rule for variable scope in Java.
+A variable must be initialized at the same time that it is declared, e.g., int x = 5;: False. Variables can be declared without being immediately initialized (e.g., int x;).
+Conditionals are used to implement a branching flow of control: True. Conditionals like if, else if, and else control the branching in the program.
